@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load user_filters %}
 <div class="row justify-content-center">
   <div class="col-md-8 p-5">
     <div class="card">
@@ -8,30 +9,33 @@
       </div>
       <div class="card-body">
         <form method="post" action="">
-          <input type="hidden" name="csrfmiddlewaretoken" value="">
-          <div class="form-group row my-3 p-3">
 
-              {% csrf_token %}
+          {% csrf_token %}
 
-            <label for="id_text">
-              Текст поста
-              <span class="required text-danger">*</span>
+          {% for field in form %}
+          <div class="form-group row my-3"
+            {% if field.field.required %} 
+              aria-required="true"
+            {% else %}
+              aria-required="false"
+            {% endif %}
+>
+            <label for="{{ field.id_for_label }}">
+              {{ field.label }}
+                {% if field.field.required %}
+                  <span class="required text-danger">*</span>
+                {% endif %}
             </label>
-            {{ form.text }}
-            <small id="id_text-help" class="form-text text-muted">
-              Текст поста
-            </small>
+            <div>
+            {{ field|addclass:'form-control' }}
+              {% if field.help_text %}
+                <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                  {{ field.help_text|safe }}
+                </small>
+              {% endif %}
+            </div>
           </div>
-          <div class="form-group row my-3 p-3">
-            <label for="id_group">
-              Группа
-            </label>
-              {{ form.group }}
-            </select>
-            <small id="id_group-help" class="form-text text-muted">
-              Группа, к которой будет относиться пост
-            </small>
-          </div>
+          {% endfor %}
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">
               {% if edit_button %}

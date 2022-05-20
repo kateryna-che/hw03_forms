@@ -30,8 +30,8 @@
     </ul>
   </aside>
   <article class="col-12 col-md-9">
-    <p>
-      {{ post }}
+    <p class="text-break">
+      {{ post.text }}
     </p>
     {% if edit_button %}
     <a href="{% url 'posts:post_edit' post.id %}">

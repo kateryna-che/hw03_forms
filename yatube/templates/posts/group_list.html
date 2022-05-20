@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% block title %} 
+<h1>{{ group.title }}</h1><br> 
+<p>{{ group.description }}</p> 
+{% endblock %}
 {% block content %}
-<h1>Записи сообщества {{ group }}</h1>
 {% for post in page_obj %}
   {% include 'posts/card_post.html' %}
 {% endfor %}

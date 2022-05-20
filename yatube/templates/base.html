@@ -12,7 +12,11 @@
   <meta name="msapplication-TileColor" content="#000">
   <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <title>{{ title }}</title>
+  <title>{% block title %}
+    {{title}}
+    {% endblock %}
+  </title>
+
 </head>
 
 <body>
@@ -21,8 +25,6 @@
   </header>
   <main>
     <div class="container py-5">
-      {% block title %} 
-      {% endblock %}
       {% block content %}
       {% endblock %}
     </div>

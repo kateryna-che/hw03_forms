@@ -46,7 +46,6 @@ def post_detail(request, post_id):
     context = {
         'post': post,
         'title': post.text[:30],
-        'posts_count': posts_count,
     }
     return render(request, 'posts/post_detail.html', context)
 

@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 def index(request):
-    post_list = Post.objects.select_related('author', 'group').all()
+    post_list = Post.objects.select_related('author', 'group')
     context = {
         'page_obj': paginator(request, post_list),
     }
@@ -19,7 +19,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.groups.select_related('author').all()
+    post_list = group.posts.select_related('author')
     context = {
         'group': group,
         'page_obj': paginator(request, post_list),
@@ -29,7 +29,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    post_author = author.posts.select_related('group').all()
+    post_author = author.posts.select_related('group')
     posts_count = post_author.count()
     context = {
         'author': author,

@@ -26,7 +26,7 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='groups'
+        related_name='posts'
     )
 
     class Meta:
